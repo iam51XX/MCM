@@ -1,0 +1,10 @@
+jupyter
+pandas
+matplotlib
+scikit-learn
+statsmodels
+tensorflow
+keras
+seaborn
+adjustText
+openpyxl

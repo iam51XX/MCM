@@ -1,0 +1,248 @@
+\documentclass{mcmthesis}
+\mcmsetup{CTeX = false,    % 使用 CTeX 套装时，设置为 true
+          tcn = {2520861}, problem = \textcolor{red}{C},
+          sheet = true, titleinsheet = true, keywordsinsheet = true,
+          titlepage = false, abstract = false}
+        
+\usepackage{newtxtext}     % \usepackage{palatino}
+\usepackage[style=apa,backend=biber]{biblatex}
+\addbibresource{reference.bib}
+
+\usepackage{tocloft}
+\usepackage{subcaption}
+\usepackage{float}  %控制图片和表格的位置
+\usepackage{indentfirst} %s首行缩进
+\usepackage{threeparttable} %添加表格注释
+\setlength{\cftbeforesecskip}{6pt}
+%\setlength{\parindent}{2em} %全局首行缩进2字符
+\renewcommand{\contentsname}{\hspace*{\fill}\Large\bfseries Contents \hspace*{\fill}}
+
+\title{{\bf title}}
+% \author{\small \href{http://www.latexstudio.net/}
+%   {\includegraphics[width=7cm]{mcmthesis-logo}}}
+\date{\today}
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%摘要%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+
+    abstract content...
+
+\begin{keywords}
+    Momentum Analysis; Predictive Modeling; Random Forest; Sliding Window; Logistic Regression;
+    Data Visualization; Generalization Capability
+\end{keywords}
+\end{abstract}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%目录%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\maketitle
+
+\tableofcontents
+\thispagestyle{empty}
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%引言%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+
+\subsection{Background}%%%%%%%%背景
+
+\subsection{Literature Review}%%%%%%%%文献综述
+
+\subsection{Restatement of the Problem}%%%%%%%%问题重述
+
+
+\subsection{Our Work}%%%%%%%%文章分析
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%假设%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Assumptions and Justification}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%符号说明%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Notations}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%数据处理%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+{\bf Coach Movement Between Different Countries}
+For coaches moving between different countries, we calculate the change in medal counts for both countries involved, multiply by the weight coefficients, and compute the difference between the positive growth in the target country and the negative growth in the original country to obtain the weight ww of the directed edge.
+
+\begin{equation} \label{1}
+    W = W_A - W_B
+\end{equation}
+
+\begin{itemize}
+    \item A is the inflow country;
+    \item B is the outflow country;
+    \item wA is the weighted score of medal count changes in country A;
+    \item wB is the weighted score of medal count changes in country B.
+\end{itemize}
+
+{\bf Lang Ping's Coach Movement Between China and the U.S.}
+
+In this model, Lang Ping's coaching movement is treated as an influence transfer between countries, from the U.S. to China or vice versa. We need to calculate the weight of Lang Ping's transfer from the U.S. to China based on the changes in medal counts.
+
+For instance, Lang Ping coached the U.S. women's volleyball team from 2005 to 2008, and in 2008, the U.S. team won a silver medal. In 2012, she returned to China and led the Chinese women's volleyball team to a gold medal at the 2016 Rio Olympics.
+
+By utilizing the data extraction method, we calculate the medal counts for the U.S. women's volleyball team in 2004, 2008, 2012, and 2016, as well as for China in 2012 and 2016. The weight calculation method involves calculating the changes in medal counts, applying the weight coefficients, and determining the impact of Lang Ping's coaching movement on both countries.
+
+According to the weight calculation method, since Lang Ping was coaching in the U.S. in 2008 without any coach movement, a self-loop edge is drawn for the U.S. The difference between the medal counts in 2008 and 2004 is calculated: $\Delta G$ = +0, $\Delta S$ = +1, $\Delta B$ = +0. By multiplying these changes by the medal weight coefficients, the total score is 2.
+
+During the period of 2016, Lang Ping moved from the U.S. to China. 
+
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{|c|c|p{2cm}|c|c|c|}
+    \hline
+    \textbf{Sport} & \textbf{Coach} & \textbf{Years} & \textbf{Medals} & \textbf{Change in Medals} & \textbf{Points} \\
+    \hline
+    Volleyball & Lang Ping & 2004→2008 (USA self-loop)\\ & Gold & +0 & 2 \\
+               &             &                           & Silver & +1 &   \\
+               &             &                           & Bronze & +0 &   \\
+    \hline
+               & Lang Ping & 2012→2016 (USA→China) \\& Gold & USA+0, CHN+1 & 5 \\
+               &             &                         & Silver & USA-1, CHN+0 &   \\
+               &             &                         & Bronze & USA+1, CHN+0 &   \\
+    \hline
+    \end{tabular}
+    \caption{Coach Lang Ping's Medal Changes and Points from 2004 to 2016}
+\end{table}
+    
+\subsubsection{Flow Calculation}
+
+
+\begin{longtable}{|c|c|p{8cm}|p{1cm}|p{3cm}|}
+\hline
+\textbf{Sport} & \textbf{Coach} & \textbf{Flow Path} & \textbf{Total Flow} & \textbf{Bottleneck Flow} \\
+\hline
+\endfirsthead
+
+\hline
+\textbf{Sport} & \textbf{Coach} & \textbf{Flow Path} & \textbf{Total Flow} & \textbf{Bottleneck Flow} \\
+\hline
+\endhead
+
+\hline
+\endfoot
+
+Volleyball & Lang Ping & 2004→2008 (USA self-loop): Gold +0, Silver +1, Bronze +0, Score = 2 & 7 & 2 \\
+           &           & 2012→2016 (USA → China): USA Gold +0, Silver -1, Bronze +1; China Gold +1, Silver +0, Bronze +0, Score = 5 & & \\
+\hline
+\end{longtable}
+
+\subsection{Model Results and Analysis}
+
+    This section analyzes the changes in medal counts for China, the U.S., and France, focusing on the impact of the "great coach" effect. Using the flow network model, we quantify the effect of coach movements on medal counts and propose investment strategies based on the model results.
+
+    (1)China: Table Tennis, Diving, Gymnastics
+    \begin{table}[ht]
+        \centering
+        \begin{tabular}{|p{2cm}|p{1cm}|c|p{1cm}|p{2cm}|}
+        \hline
+        Sport & Coach & Traffic Path & Total Traffic & Bottleneck Flow \\
+        \hline
+        Table Tennis & Liu Guoliang & 2004: Gold +1, Silver +1, Bronze +0, Score = -2 & 6 & -2 \\
+         & & 2004$\to$2008: Gold +2, Silver +0, Bronze +0, Score = 8 & & \\
+        \hline
+        Diving & Zhou Jihong & 2004$\to$2008: Gold +1, Silver -1, Bronze +2, Score = 4 & 4 & -2 \\
+         & & 2008$\to$2012: Gold -1, Silver +2, Bronze -2, Score = -2 & & \\
+         & & 2012$\to$2016: Gold +1, Silver -1, Bronze +0, Score = 2 & & \\
+        \hline
+        Gymnastics & Huang Yubin & 1996: Gold +1, Silver -1, Bronze +1, Score = 3 & -2 & -5 \\
+         & & 1996$\to$2000: Gold -1, Silver +0, Bronze -1, Score = -5 & & \\
+        \hline
+        \end{tabular}
+        \caption{Sports Statistics}
+    \end{table}
+
+    \begin{itemize}
+        \item {\bf Table Tennis:}Under Liu Guoliang's coaching, table tennis exhibited a relatively large total flow (6), but the bottleneck flow was -2, indicating that although the coach's contribution was evident, certain limiting factors restricted the potential for improvement.      
+        \item {\bf Diving:}Zhou Jihong's coaching period was relatively stable, with a total flow of 4 and a bottleneck flow of -2, suggesting that despite the coach’s contribution, the project experienced significant volatility, especially between 2008 and 2012.    
+        \item {\bf Gymnastics:}Under Huang Yubin, the gymnastics team showed poor performance, with a total flow of -2 and a bottleneck flow of -5, demonstrating limited coach contribution and significant external restrictions on the project’s performance.
+    \end{itemize}
+
+    Table tennis is the most promising project. Despite the bottleneck flow, the coach's contribution is significant, suggesting that further investment in the "great coach" effect is warranted in this area. Diving, although stable, requires improvements in other factors due to the presence of bottleneck flows. Gymnastics requires more attention and enhancement, as the coach’s contribution is minimal, and both total flow and bottleneck flow indicate significant room for improvement.
+
+    (2)USA: Gymnastics, Basketball, Volleyball
+    \begin{table}[ht]
+        \centering
+        \begin{tabular}{|p{2cm}|p{2cm}|c|p{1cm}|p{2cm}|}
+        \hline
+        Sport & Coach & Traffic Path & Total Traffic & Bottleneck Flow \\
+        \hline
+        Gymnastics & Bela Karolyi & 2004: Gold +1, Silver +4, Bronze +0, Score = 12 & 14 & -4 \\
+         & & 2004$\to$2008: Gold +1, Silver +1, Bronze +0, Score = 6 & & \\
+         & & 2008$\to$2012: Gold +1, Silver -4, Bronze +0, Score = -4 & & \\
+        \hline
+        Basketball & Mike Krzyzewski & 2004$\to$2008: Gold +1, Silver -1, Bronze +0, Score = 2 & 2 & 0 \\
+         & & 2008$\to$2012: Gold +0, Silver +0, Bronze +0, Score = 0 & & \\
+         & & 2012$\to$2016: Gold +0, Silver +0, Bronze +0, Score = 0 & & \\
+        \hline
+        Volleyball & Karch Kiraly & 2008$\to$2012: Gold +0, Silver +0, Bronze +0, Score = 0 & 2 & -1 \\
+         & & 2012$\to$2016: Gold +0, Silver -1, Bronze +1, Score = -1 & & \\
+         & & 2016$\to$2020: Gold +1, Silver +0, Bronze -1, Score = 3 & & \\
+        \hline
+        \end{tabular}
+        \caption{Sports Statistics}
+    \end{table}
+
+    \begin{itemize}
+        \item {\bf Gymnastics:}Bela Karolyi's total flow is relatively high (14), indicating significant coach contribution, but the bottleneck flow is negative (-4), suggesting that performance improvement is constrained by external factors.
+        \item {\bf Basketball:}Under Gregg Popovich, the total flow is 2, and the bottleneck flow is 0, indicating stable performance with limited fluctuations. The team has won gold in multiple editions of the Olympics, and the coach's capabilities are notable.
+        \item {\bf Volleyball:}Under Karch Kiraly's coaching, the total flow is 2, and the bottleneck flow is -1, indicating limited coach contribution, with performance volatility due to external restrictions.
+    \end{itemize}
+
+    Basketball has shown stable performance, but the coach’s contribution is relatively small, and the project’s performance is constrained. Volleyball shows significant volatility, with the coach’s impact being limited. Gymnastics, although the coach’s contribution is substantial, requires further improvements due to external constraints. The gymnastics project is best suited for further investment in "great coach" effects.
+
+    (3)France: Fencing, Basketball, Football
+    \begin{table}[ht]
+        \centering
+        \begin{tabular}{|p{2cm}|p{1.5cm}|c|p{1cm}|p{2cm}|}
+        \hline
+        Sport & Coach & Traffic Path & Total Traffic & Bottleneck Flow \\
+        \hline
+        Fencing & Yu Ge Oubuli & 2016: Gold +1, Silver +1, Bronze +1, Score = 7 & 2 & -5 \\
+         & & "2020 (France $\to$ China): China Gold +1, Silver -1, Bronze -1; France Gold +1, Silver +1, Bronze +0, Score = -5" & & \\
+        \hline
+        Basketball & Vincent Collet & 2012$\to$2016: Gold +0, Silver +0, Bronze +0, Score = 0 & 2 & 0 \\
+         & & 2016$\to$2020: Gold +0, Silver +1, Bronze +0, Score = 2 & & \\
+        \hline
+        Football & Thierry Henry & 2016$\to$2020: Gold +0, Silver +0, Bronze +0, Score = 0 & 2 & 0 \\
+         & & 2020$\to$2024: Gold +0, Silver +1, Bronze +0, Score = 2 & & \\
+        \hline
+        \end{tabular}
+        \caption{Sports Statistics}
+    \end{table}
+
+    \begin{itemize}
+        \item {\bf Fencing}Under Yves Guillard, the coach's effect is complex. Although France's performance was relatively high, the negative change after transferring to China suggests significant external constraints. The bottleneck flow is negative, indicating limitations on performance improvement.
+        \item {\bf Basketball: }Vincent Collet’s coaching slightly improved the French basketball team’s performance, with a bottleneck flow of 0, indicating stable performance with no significant external constraints.
+        \item {\bf Football: } Thierry Henry’s coaching had a positive impact on French football, especially in terms of silver medals. The bottleneck flow is 0, indicating a direct effect of the coach’s influence on the project’s performance.
+    \end{itemize}
+
+        
+\subsection{Verification and Strategy Recommendations}
+     \begin{table}[ht]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Sport & Coach & Traffic Path & Total Traffic & Bottleneck Flow \\
+\hline
+Gymnastics & Bela Karolyi & 2004: Gold +1, Silver +4, Bronze +0, Score = 12 & 14 & -4 \\
+ & & 2004$\to$2008: Gold +1, Silver +1, Bronze +0, Score = 6 & & \\
+ & & 2008$\to$2012: Gold +1, Silver -4, Bronze +0, Score = -4 & & \\
+\hline
+Basketball & Mike Krzyzewski & 2004$\to$2008: Gold +1, Silver -1, Bronze +0, Score = 2 & 2 & 0 \\
+ & & 2008$\to$2012: Gold +0, Silver +0, Bronze +0, Score = 0 & & \\
+ & & 2012$\to$2016: Gold +0, Silver +0, Bronze +0, Score = 0 & & \\
+\hline
+Volleyball & Karch Kiraly & 2008$\to$2012: Gold +0, Silver +0, Bronze +0, Score = 0 & 2 & -1 \\
+ & & 2012$\to$2016: Gold +0, Silver -1, Bronze +1, Score = -1 & & \\
+ & & 2016$\to$2020: Gold +1, Silver +0, Bronze -1, Score = 3 & & \\
+\hline
+\end{tabular}
+\caption{Sports Statistics}
+\end{table}   
+
+    After analyzing the performance of China, the U.S., and France and their respective coaches, this section explores the impact of the "great coach" effect on medal counts, particularly in the context of coach movements. Although athletes may find it difficult to change countries due to nationality requirements, coaches are free to move between countries and have a significant impact on performance. Based on the analysis, we can conclude that the "great coach" effect contributes significantly to certain sports, especially in gymnastics, table tennis, and football, where coach expertise and experience lead to substantial improvements.
+
+\end{document}
